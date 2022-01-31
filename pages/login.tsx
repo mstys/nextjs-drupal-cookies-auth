@@ -1,13 +1,11 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 import React, { useState } from 'react'
 import { apiLink } from '../helpers'
 import { userService } from '../services';
 
 const SignInForm: NextPage = () => {
   const router = useRouter();
-  // const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
