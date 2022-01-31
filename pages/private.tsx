@@ -1,12 +1,11 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import { wrapper } from '../store/store'
 
 const Private: NextPage & { auth?: boolean } = () => {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Private page Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -71,12 +70,6 @@ const Private: NextPage & { auth?: boolean } = () => {
     </div>
   )
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(store => async () => {
-  return {
-    props: {}
-  }
-})
 
 Private.auth = true
 

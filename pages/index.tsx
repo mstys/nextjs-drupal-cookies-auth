@@ -1,7 +1,4 @@
 import Head from 'next/head'
-import { wrapper } from '../store/store'
-
-const cardClass = 'w-1/4 m-2 p-4 border rounded border-slate-200'
 
 export default function Home() {
   return (
@@ -30,10 +27,3 @@ export default function Home() {
     </div>
   )
 }
-
-
-export const getServerSideProps = wrapper.getServerSideProps(store => async () => {
-  return {
-    props: {}
-  }
-})

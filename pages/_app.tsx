@@ -1,11 +1,9 @@
 import React from 'react'
 import '../styles/globals.css';
 import Auth from '../components/security/Auth'
-import { wrapper } from '../store/store';
 
 
 function App({ router, pageProps, Component }) {
-
   return (
     <>
       {
@@ -20,4 +18,3 @@ function App({ router, pageProps, Component }) {
 }
 
 export default App
-// export default wrapper.withRedux(App)

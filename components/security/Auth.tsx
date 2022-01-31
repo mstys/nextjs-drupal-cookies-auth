@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { apiLink } from '../../helpers'
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
 import Spinner from '../Spinner/Spinner';
-import { State } from '../../store/store';
 
 import { userService } from '../../services';
 
