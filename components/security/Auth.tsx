@@ -7,9 +7,6 @@ import { userService } from '../../services';
 
 
 export default function Auth({ children, ...props }) {
-  console.log('props', userService.userValue)
-  // const dispatch = useDispatch();
-  // const userDetails = useSelector((state: State) => state.user)
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(null);
   const router = useRouter();
@@ -32,7 +29,6 @@ export default function Auth({ children, ...props }) {
   }, [])
 
   const authCheck = () => {
-    console.log('auth userDetails', userService.userValue)
     if (userService.userValue) {
       // refresh session
       fetch(`${apiLink}/user/${userService.userValue?.uid}?_format=json`, {
@@ -48,7 +44,7 @@ export default function Auth({ children, ...props }) {
             Promise.reject('User unauthorized');
             setAuthorized(false);
             userService.logout();
-            router.push('/login?session_expired=true');
+            router.push('/login');
           } else {
             setAuthorized(true);
           }
@@ -63,8 +59,6 @@ export default function Auth({ children, ...props }) {
     }
   }
 
-
-  // Session is being fetched, or no user.
   if (!loading) return authorized ? children : <Spinner />
   else return <Spinner />
 }

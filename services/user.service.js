@@ -44,9 +44,26 @@ async function login(email, password) {
   }
 }
 
-function logout() {
-  // remove user from local storage, publish null to user subscribers and redirect to login page
+async function logout() {
+  // remove user from local storage, publish null to user subscribers and redirect to HOME page
+  // ! move down if Drupal server use SSL !
   localStorage.removeItem("user");
   userSubject.next(null);
-  Router.push("/login");
+  Router.push("/");
+  
+  try {
+    const request = await fetch(`${apiLink}/user/logout`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (request.ok) {
+      // clear localstorage, userSubject
+    }
+  } catch (e) {
+    throw new Error(e);
+  }
 }
