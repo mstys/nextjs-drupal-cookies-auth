@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -9,9 +10,10 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="text-3xl font-bold underline">
-          Hello world!
+        <h1 className="text-3xl">
+          SSR - Cookies based NextJS authorization
         </h1>
+        <a className="text-xl  color-primary underline p-4 text-blue-500 decoration-blue-500" href="/private">Go to Private</a>
       </main>
 
       <footer>

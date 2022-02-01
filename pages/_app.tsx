@@ -24,11 +24,8 @@ CustomApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   let cookies = {};
   if (process.browser === false) {
-    // cookies = Cookies.get();
     cookies = appContext.ctx.req?.cookies;
   }
-  // else {
-  // }
 
   return { ...appProps, cookies }
 }

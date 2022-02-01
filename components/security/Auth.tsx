@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { apiLink } from '../../helpers'
 import { getAuthCookie, getUserCookie } from '../../helpers'
 import { useRouter } from 'next/router'
+import Cookies from "js-cookie";
 import Spinner from '../Spinner/Spinner';
 
 export default function Auth({ children, cookies }) {
   const authCookie = getAuthCookie(cookies);
   const userDataCookie = getUserCookie(cookies);
-  const date = new Date().getTime();
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(null);
   const router = useRouter();
@@ -30,9 +30,6 @@ export default function Auth({ children, cookies }) {
   }, [])
 
   const authCheck = () => {
-    console.log('authCookie2', authCookie)
-    console.log('userDataCookie2', userDataCookie)
-    console.log('date auth', date)
     if (authCookie && userDataCookie) {
       // verify session
       fetch(`${apiLink}/user/${userDataCookie}?_format=json`, {
@@ -46,10 +43,11 @@ export default function Auth({ children, cookies }) {
           if (response.status === 403 || response.status === 404) {
             Promise.reject('User unauthorized');
             setAuthorized(false);
-          
+
             // delete old cookies
-            document.cookie = "COOKIE_NAME=; Max-Age=0; path=/; domain=" + location.hostname;
-            router.push('/login?session_expired=true');
+            Cookies.remove("USER_DATA");
+            // redirect to login
+            location.href = '/login?session_expired=true';
           } else {
             setAuthorized(true);
           }
@@ -60,10 +58,9 @@ export default function Auth({ children, cookies }) {
         .catch(error => { console.log(error) })
     } else {
       setAuthorized(false);
-      router.push('/login');
+      location.href = '/login';
     }
   }
-
 
   if (!loading) return authorized ? children : <Spinner />
   else return <Spinner />
