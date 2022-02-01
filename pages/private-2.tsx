@@ -1,18 +1,16 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 
-const Private: NextPage & { auth?: boolean } = () => {
+const Private2: NextPage & { auth?: boolean } = () => {
   return (
     <div className="container">
       <Head>
-        <title>Private page Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Private 2 page Next App</title>
       </Head>
 
       <main>
         <h1 className="title">
-          Go to <Link href="/private-2">Private 2</Link>
+          Private 2
         </h1>
 
         <p className="description">
@@ -53,6 +51,6 @@ const Private: NextPage & { auth?: boolean } = () => {
   )
 }
 
-Private.auth = true
+Private2.auth = true
 
-export default Private;
+export default Private2;

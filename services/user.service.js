@@ -1,16 +1,8 @@
-import { BehaviorSubject } from "rxjs";
 import Router from "next/router";
 import { apiLink } from "../helpers";
-
-const userSubject = new BehaviorSubject(
-  process.browser && JSON.parse(localStorage.getItem("user"))
-);
+import Cookies from "js-cookie";
 
 export const userService = {
-  user: userSubject.asObservable(),
-  get userValue() {
-    return userSubject.value;
-  },
   login,
   logout,
 };
@@ -32,9 +24,7 @@ async function login(email, password) {
     const json = await request.json();
 
     if (request.ok) {
-      userSubject.next(json.current_user);
-      localStorage.setItem("user", JSON.stringify(json.current_user));
-
+      Cookies.set("USER_DATA", json.current_user.uid);
       return json;
     } else {
       throw json.message;
@@ -44,9 +34,24 @@ async function login(email, password) {
   }
 }
 
-function logout() {
-  // remove user from local storage, publish null to user subscribers and redirect to login page
-  localStorage.removeItem("user");
-  userSubject.next(null);
-  Router.push("/login");
+async function logout() {
+  try {
+    const request = await fetch(`${apiLink}/user/logout`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (request.ok) {
+      //remove cookies, redirect
+    }
+  } catch (e) {
+    throw new Error(e);
+  }
+
+  // move up if drupal server use SSL!
+  Cookies.remove("USER_DATA");
+  window.location.href = "/";
 }
