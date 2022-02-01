@@ -3,6 +3,7 @@ import App from 'next/app'
 import '../styles/globals.css';
 import Auth from '../components/security/Auth'
 import Header from '../components/Header';
+import Cookies from 'js-cookie';
 
 function CustomApp({ router, pageProps, Component, cookies }) {
   return (
@@ -25,6 +26,8 @@ CustomApp.getInitialProps = async (appContext) => {
   let cookies = {};
   if (process.browser === false) {
     cookies = appContext.ctx.req?.cookies;
+  } else {
+    cookies = Cookies.get();
   }
 
   return { ...appProps, cookies }

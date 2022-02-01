@@ -11,9 +11,9 @@ export default function Home() {
 
       <main>
         <h1 className="text-3xl">
-          SSR - Cookies based NextJS authorization
+          SSR NextJS authorization based on cookies only
         </h1>
-        <a className="text-xl  color-primary underline p-4 text-blue-500 decoration-blue-500" href="/private">Go to Private</a>
+        <Link href="/private"><a className="text-xl  color-primary underline p-4 text-blue-500 decoration-blue-500" >Go to Private</a></Link>
       </main>
 
       <footer>

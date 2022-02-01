@@ -6,7 +6,6 @@ import Cookies from "js-cookie";
 import Spinner from '../Spinner/Spinner';
 
 export default function Auth({ children, cookies }) {
-  const authCookie = getAuthCookie(cookies);
   const userDataCookie = getUserCookie(cookies);
   const [authorized, setAuthorized] = useState(false);
   const [loading, setLoading] = useState(null);
@@ -30,7 +29,7 @@ export default function Auth({ children, cookies }) {
   }, [])
 
   const authCheck = () => {
-    if (authCookie && userDataCookie) {
+    if (userDataCookie) {
       // verify session
       fetch(`${apiLink}/user/${userDataCookie}?_format=json`, {
         method: 'GET',
@@ -47,7 +46,9 @@ export default function Auth({ children, cookies }) {
             // delete old cookies
             Cookies.remove("USER_DATA");
             // redirect to login
-            location.href = '/login?session_expired=true';
+            router.push('/login?session_expired=true');
+            // hit header refresh
+            // location.href = '/login?session_expired=true';
           } else {
             setAuthorized(true);
           }
